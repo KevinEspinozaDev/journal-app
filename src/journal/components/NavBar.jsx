@@ -1,12 +1,9 @@
 import { LogoutOutlined, MenuOutlined } from "@mui/icons-material"
 import { AppBar, Grid, IconButton, Toolbar, Typography } from "@mui/material"
+import { logoutFirebase } from "../../firebase/providers";
 
 export const NavBar = ({drawerWidth = 240}) => {
 
-
-    const onLogout = () => {
-        console.log('logout');
-    }
 
   return (
     <AppBar position="fixed"
@@ -32,7 +29,7 @@ export const NavBar = ({drawerWidth = 240}) => {
 
 
                 <IconButton color="error"
-                onClick={onLogout}>
+                onClick={logoutFirebase}>
                     <LogoutOutlined></LogoutOutlined>
                 </IconButton>
             </Grid>
