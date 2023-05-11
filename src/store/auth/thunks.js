@@ -1,7 +1,8 @@
 import { checkingCredentials, login, logout } from "./";
 import { loginWithEmailPassword, logoutFirebase, registerUserWithEmailPassword, signInWithGoogle } from "../../firebase/providers";
-import { async } from "@firebase/util";
 import { getAuth } from "firebase/auth";
+import { loadNotes } from "../../helpers/loadNotes";
+import { clearNotesLogout } from "../journal/journalSlice";
 
 export const checkingAuthentication = (email, password) => {
     return async( dispatch ) => {
@@ -29,7 +30,6 @@ export const startGoogleSignIn = () => {
         dispatch(checkingCredentials());
         
         const result = await signInWithGoogle();
-        console.log(result)
         
         setTimeout(() => {
             if (!result.ok) return dispatch(logout(result.errorMessage));
@@ -75,6 +75,7 @@ export const startLogout = async() => {
 
         const auth = getAuth();
         await logoutFirebase(auth);
+        dispatch( clearNotesLogout() );
         dispatch(logout({}));
     }
 }
